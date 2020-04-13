@@ -1,0 +1,15 @@
+{
+  "name": "git-compose",
+  "version": "0.0.1",
+  "description": "Compose GIT branches and cascade merge updates",
+  "main": "src/git-compose.sh",
+  "keywords": [],
+  "author": "Neil Russell <neilrussell6@gmail.com>",
+  "license": "ISC",
+  "bin": {
+    "git-compose": "./src/git-compose.sh"
+  },
+  "files": [
+    "bin"
+  ]
+}
