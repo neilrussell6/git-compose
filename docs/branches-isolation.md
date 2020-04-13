@@ -46,7 +46,7 @@ git push iso__redux__middlware
 
 ### Merging
 
-[Auto-Merging](git-cascade-merge.md) scripts will use the naming conventions above
+[Auto-Merging](commands-cascade-merge.md) scripts will use the naming conventions above
 to automatically merge parents into children eg.
  - merge ``master`` into ``iso__redux``
  - merge ``iso__redux`` into ``iso__redux__middlware``

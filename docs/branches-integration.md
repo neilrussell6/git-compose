@@ -22,7 +22,7 @@ int__devops__circlci--redux__nav--redux__middleware__epics
 
 ### Creating
 
-To create an Integration branch, use the [Build-Integration-Branch Script](git-build-integration-branch.md)
+To create an Integration branch, use the [Build-Integration-Branch Script](commands-build-integration-branch.md)
 
 eg. to create an Integration branch from the following Isolation branches:
  - ``iso__devops__circleci``
@@ -38,7 +38,7 @@ npm run git:branch:integration:build -- "int__devops__circlci--redux__selectors-
 
 ### Merging
 
-[Auto-Merging](git-cascade-merge.md) scripts will use the naming conventions above
+[Auto-Merging](commands-cascade-merge.md) scripts will use the naming conventions above
 to automatically merge composed Isolation branches into Integration branch
 
 eg.

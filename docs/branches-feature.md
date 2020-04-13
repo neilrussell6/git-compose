@@ -44,7 +44,7 @@ git push feat__crypto_wallet__hardware_signing
 
 ### Merging
 
-[Auto-Merging](git-cascade-merge.md) scripts will use the naming conventions above
+[Auto-Merging](commands-cascade-merge.md) scripts will use the naming conventions above
 to automatically merge parents into children eg.
  - merge ``master`` into ``feat__crypto_wallet``
  - merge ``feat__crypto_wallet`` into ``feat__crypto_wallet__transactions``
