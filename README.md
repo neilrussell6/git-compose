@@ -61,6 +61,16 @@ Commands
    npx git-compose cascade_merge
    ```
 
+Env file
+---
+
+Add an ``.env`` file to your project to configure this script.
+eg.
+```
+ROOT_BRANCH=master
+ERROR_LOG_PATH=git-branch-errors.txt
+```
+
 Complete Indemnity
 ---
 
