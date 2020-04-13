@@ -1,6 +1,6 @@
 {
   "name": "git-compose",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Compose GIT branches and cascade merge updates",
   "repository": {
     "type": "git",
