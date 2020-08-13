@@ -40,7 +40,7 @@ set_parent_branch () {
     PARENT_BRANCH="${ROOT_BRANCH}"
   else
     LAST_BRANCH=${TREE[*]: -1}
-    if [[ "${BRANCH}" == "${LAST_BRANCH}"* ]] ; then
+    if [[ "${BRANCH}" == "${LAST_BRANCH}__"* ]] ; then
       TREE+=("${BRANCH}")
       PARENT_BRANCH="${LAST_BRANCH}"
     else
