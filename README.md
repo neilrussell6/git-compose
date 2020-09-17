@@ -3,11 +3,11 @@ GIT Compose
 
 > Compose GIT branches and cascade merge updates
 
-Assumes your project is using the ``IIF™`` branching pattern:
+Assumes your project is using the ``IIP™`` branching pattern:
 
  - Isolation Branches
  - Integration Branches
- - Feature Branches
+ - Package Branches
 
 ### Isolation Branch
 
@@ -21,12 +21,11 @@ Assumes your project is using the ``IIF™`` branching pattern:
 
 [read more ...](docs/branches-integration.md)
 
-### Feature Branch
+### Package Branch
 
-> One or more Isolation and/or Integration Branches composed to create a foundation upon which a feature is built, prefixed with ``feat__``.
+> Isolation, muliple Isolation and/or Integration Branches on their own or composed to create a foundation upon which a reusable package (eg. NPM package) is built, prefixed with ``pkg__``.
 
-
-[read more ...](docs/branches-feature.md)
+[read more ...](docs/branches-package.md)
 
 ### Other Branches
 
@@ -40,7 +39,7 @@ Quick Start
    npm i -D git-compose
    ```
 
- - Make sure your branches follow the ``IIF™`` branch naming conventions.
+ - Make sure your branches follow the ``IIP™`` branch naming conventions.
 
  - Use the commands below
 
@@ -50,6 +49,14 @@ Commands
  - print project branch hierarchy
    ```
    npx git-compose print_heirarchy
+   ```
+   verbose mode (shows full branch names)
+   ```
+   npx git-compose print_heirarchy -v
+   ```
+   fetch remotes
+   ```
+   npx git-compose print_heirarchy -f
    ```
  - [build an integration branch](docs/commands-build-integration-branch.md)
    ```
@@ -67,12 +74,12 @@ Env file
 Add an ``.env`` file to your project to configure this script.
 eg.
 ```
-ROOT_BRANCH=master
+ROOT_BRANCH=iso__base
 ERROR_LOG_PATH=git-branch-errors.txt
 ```
 
 Complete Indemnity
 ---
 
-The ``IIF™`` standard is an experiment, use with discretion.
+The ``IIP™`` standard is an experiment, use with discretion.
 I take no responsibility for any damage or loss resulting from the use of this package. 
