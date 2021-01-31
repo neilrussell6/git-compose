@@ -244,22 +244,22 @@ print_hierarchy () {
 
   for x; do
     case "$x" in
-      --fetch|-f)     args+=( -f ) ;;
-      --verbose|-v)   args+=( -v ) ;;
-      *)              args+=( "$x" ) ;;
+      --fetch|-f)       args+=( -f ) ;;
+      --not-verbose|-v) args+=( -v ) ;;
+      *)                args+=( "$x" ) ;;
     esac
   done
 
   set -- "${args[@]}"
 
   local SHOULD_FETCH=0
-  local IS_VERBOSE=0
+  local IS_VERBOSE=1
 
   unset OPTIND
   while getopts ":fv" x; do
     case "$x" in
       f)  SHOULD_FETCH=1 ;;
-      v)  IS_VERBOSE=1 ;;
+      v)  IS_VERBOSE=0 ;;
     esac
   done
 
