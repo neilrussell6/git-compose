@@ -477,12 +477,21 @@ cascade_merge () {
 
   if [[ "${FROM_BRANCH}" == "${ROOT_BRANCH}" ]] || [[ "${FROM_BRANCH}" == "iso__"* ]] ; then
 
+    # if from branch is root, then target all isolation branches
     local ISO_GREP="^iso__"
     if [[ "${FROM_BRANCH}" != "${ROOT_BRANCH}" ]] ; then
+      # if from branch is not root, target only children of from branch
       ISO_GREP="${FROM_BRANCH}__"
+
+      # if TREE list is empty then set_parent_branch will assume the parent of the initial children is root
+      # as this may not be the case when providing a from branch, we need to add the provided from branch to
+      # TREE list
+      TREE+=("${FROM_BRANCH}")
     fi
 
+    # from branch is always excluded (nothing is merged into it), so print now
     echo -e "${DIR_SYMBOL} ${FROM_BRANCH}"
+
     local ISO_BRANCHES=$(git for-each-ref refs/heads --format='%(refname:lstrip=2)' | grep "${ISO_GREP}")
 
     for BRANCH in $ISO_BRANCHES; do
