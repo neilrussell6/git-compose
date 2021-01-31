@@ -438,31 +438,74 @@ get_local_remote_diff () {
 }
 
 cascade_merge () {
+  # ... args
+  local args=( )
+
+  for x; do
+    case "$x" in
+      --from|-f)     args+=( -f ) ;;
+      *)             args+=( "$x" ) ;;
+    esac
+  done
+
+  set -- "${args[@]}"
+
+  local FROM_BRANCH=$ROOT_BRANCH
+
+  unset OPTIND
+  while getopts ":f:" x; do
+    case "$x" in
+      f)  FROM_BRANCH="${OPTARG}" ;;
+    esac
+  done
+
+  # ... validate from branch
+  if [[ "${FROM_BRANCH}" != "${ROOT_BRANCH}" ]] && [[ "${FROM_BRANCH}" != "iso__"* ]] ; then
+    echo "Please provide a valid from branch -f or --from (only iso__ branches are supported)"
+    exit 1
+  fi
+
+  # ...
   cascade_merge_prechecks
 
-  # ... checkout root branch
-  git checkout "${ROOT_BRANCH}" -q
+  # ... checkout from branch
+  git checkout "${FROM_BRANCH}" -q
 
-  # ... cascade merge Isolation branches
+  # ... cascade merge Isolation branches (optionally from a specfic branch)
 
   h1 "Isolation Branches"; echo "" ; echo ""
 
-  echo -e "${DIR_SYMBOL} ${ROOT_BRANCH}"
-  for BRANCH in $(git for-each-ref refs/heads --format='%(refname:lstrip=2)' | grep '^iso__'); do
-    if [[ "${BRANCH}" != "${ROOT_BRANCH}" ]] ; then
-      cascade_merge_isolation_branch "${BRANCH}"
-    fi
-  done
-  echo ""
+  if [[ "${FROM_BRANCH}" == "${ROOT_BRANCH}" ]] || [[ "${FROM_BRANCH}" == "iso__"* ]] ; then
 
-  # ... cascade merge Integration branches
+    local ISO_GREP="^iso__"
+    if [[ "${FROM_BRANCH}" != "${ROOT_BRANCH}" ]] ; then
+      ISO_GREP="${FROM_BRANCH}"
+    fi
+
+    echo -e "${DIR_SYMBOL} ${FROM_BRANCH}"
+    local ISO_BRANCHES=$(git for-each-ref refs/heads --format='%(refname:lstrip=2)' | grep "${ISO_GREP}")
+
+    for BRANCH in $ISO_BRANCHES; do
+      if [[ "${BRANCH}" != "${ROOT_BRANCH}" ]] ; then
+        cascade_merge_isolation_branch "${BRANCH}"
+      fi
+    done
+    echo ""
+  fi
+
+  # ... cascade merge Integration branches (only from root)
 
   h1 "Integration Branches"; echo "" ; echo ""
 
-  for BRANCH in $(git for-each-ref refs/heads --format='%(refname:lstrip=2)' | grep '^int__'); do
-    cascade_merge_integration_branch "${BRANCH}"
-  done
-  echo ""
+  if [[ "${FROM_BRANCH}" == "${ROOT_BRANCH}" ]] ; then
+
+    local INT_BRANCHES=$(git for-each-ref refs/heads --format='%(refname:lstrip=2)' | grep '^int__')
+
+    for BRANCH in $INT_BRANCHES; do
+      cascade_merge_integration_branch "${BRANCH}"
+    done
+    echo ""
+  fi
 
   # ... re-checkout current branch
   git checkout "${CURRENT_BRANCH}" -q
