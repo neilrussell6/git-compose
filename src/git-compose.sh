@@ -479,7 +479,7 @@ cascade_merge () {
 
     local ISO_GREP="^iso__"
     if [[ "${FROM_BRANCH}" != "${ROOT_BRANCH}" ]] ; then
-      ISO_GREP="${FROM_BRANCH}"
+      ISO_GREP="${FROM_BRANCH}__"
     fi
 
     echo -e "${DIR_SYMBOL} ${FROM_BRANCH}"
@@ -495,9 +495,9 @@ cascade_merge () {
 
   # ... cascade merge Integration branches (only from root)
 
-  h1 "Integration Branches"; echo "" ; echo ""
-
   if [[ "${FROM_BRANCH}" == "${ROOT_BRANCH}" ]] ; then
+
+    h1 "Integration Branches"; echo "" ; echo ""
 
     local INT_BRANCHES=$(git for-each-ref refs/heads --format='%(refname:lstrip=2)' | grep '^int__')
 
